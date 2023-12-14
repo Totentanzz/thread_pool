@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+}
+
+group 'com.po_lab'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.po_lab.rgr'
+    mainClass = 'com.po_lab.rgr.Main'
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:23.0.0'
+}
+
+test {
+}

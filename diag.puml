@@ -1,0 +1,65 @@
+@startuml
+class CustomThreadTest {
++ {static} void runEfficiencyTest(int,int,int,EfficiencyTestType)
++ {static} double poolLoopTest(int,int,Runnable)
++ {static} double manualLoopTest(int,int,Runnable,ManualTestType)
+}
+enum ManualTestType {
++  SINGLE_THREAD_ONLY
++  POOL_SIMULATION
+}
+enum EfficiencyTestType {
++  CREATING_THREADS
++  HEAVY_WORK
+}
+class CustomThreadPool {
+- int maxTasks
+- boolean pullerExitFlag
+- Thread taskQueuePuller
+- AtomicInteger completedTasks
+- CustomThreadFactory threadFactory
+- ArrayList<CustomThread> threadList
+- Queue<Runnable> taskQueue
+- CustomSynchronousQueue<Runnable> synchQueue
++ void submit(Runnable)
++ void invokeAll(Collection<Runnable>)
++ void awaitResults()
++ void awaitResults(int)
++ void shutdown()
++ void setUpdated()
++ Runnable getNewTask()
++ String toString()
+- ArrayList<CustomThread> generateThreads()
+- void initQueuePullerThread()
+}
+class CustomThreadFactory {
+- {static} AtomicInteger factoryNumber
+- AtomicInteger threadNumber
+- ThreadGroup threadGroup
+- String threadsName
++ CustomThread createNewThread(CustomThreadPool)
+}
+class Main {
++ {static} void main(String[])
+}
+class CustomSynchronousQueue {
+- T item
+- boolean hasItem
++ void put(T)
++ T take()
+}
+class CustomThread {
+- Thread thread
+- Runnable executableCode
+- CustomThreadPool threadPool
+- Boolean terminateFlag
++ boolean isSleeping()
++ Thread.State getThreadState()
++ CustomThreadPool getThreadPool()
++ void setThreadPool(CustomThreadPool)
++ void terminate()
++ String toString()
+- void notifyPool()
+- void initThread(ThreadGroup,String)
+}
+@enduml
